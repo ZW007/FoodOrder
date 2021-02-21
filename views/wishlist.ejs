@@ -1,0 +1,46 @@
+<% include partials/header %>
+<br><br><br>
+
+<div class="container">
+
+    <h1 style="font-family: 'Oswald', sans-serif; font-size:50px;">Hello <%= user.username%>!</h1>
+    <h2 style="font-family: 'Oswald', sans-serif; font-size:35px;">Your wishlist:</h2>
+    <hr>
+
+    <% wishlists.forEach(function(wl){ %>
+    <div class="card mb-3" style="width: 100%;">
+        <div class="row no-gutters">
+            <div >
+                <div class="text" style="text-align: center; font-size: 1.2rem；font-family: 'Oswald', sans-serif;">
+                <a href="/menus/<%= wl.menuObject._id %>">
+                <img class="card-img" src="/images/<%= wl.menuObject.image %>" style="width:180px; height:180px; margin:10px" />
+                </a>
+                </div>
+        </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <div id="menuinfo" class="row align-items-center" style="font-size: 1rem;font-family: 'Oswald', sans-serif;">
+                        <div class="col-md-6">
+                            <p><strong>Name: </strong><%= wl.menuObject.name %></p>
+                            <p><strong>Type: </strong><%= wl.menuObject.type %></p>
+                            <p><strong>Price: </strong>$<%= wl.menuObject.price %></p>
+                        </div>
+                        <div class="col-md-6">
+                            <form action="/<%= user._id%>/wishlist?_method=DELETE" method="POST">
+                                <input name="wlmenuname" id="wlmenuname" value="<%= wl.menuObject.name %>"
+                                    type="hidden" />
+                                <input name="wlusername" id="wlusername" value="<%= user.username %>" type="hidden" />
+                                <button type="submit" class="button">Remove from Wishlist</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <% }); %>
+    <a href="/menus" class="button">Back to Home</a>
+</div>
+
+<br><br><br>
+<% include partials/footer %>

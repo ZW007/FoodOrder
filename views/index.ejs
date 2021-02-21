@@ -1,0 +1,71 @@
+<% include partials/header %>
+
+
+   <div class="row">
+	
+
+	<div>
+   	<form action="/menus" method="GET" class="form-inline" id="menus-search">
+		<div class="form-group">
+
+		<% if(user && user.isAdmin) { %>
+	    <a class="buttonadmin" href="menus/new" role="button">Add a new dish</a>
+	    <% } %>
+			
+			<input type="text" name="search" placeholder="Salad/Drink/Pasta..." class="form-control">
+			<select name="type" id="setected_type" style="height:40px; font-family: 'Oswald', sans-serif;font-size:18px" class="form-control">
+				<option value="all">All</option>
+				<option value="FAMILY MEALS">Family Meals</option>
+				<option value="FIT BOWLS">Fit Bowls</option>
+				<option value="PIADAS">Piadas</option>
+				<option value="SALADS">Salads</option>
+				<option value="STREET SIDES">Street Sides</option>
+				<option value="BEVERAGES">Beverages</option>
+			</select>
+		</div>
+	</form>
+	</div>
+</div>
+
+<div class="container-fluid">
+	<div class="row" id="menus-grid">
+		<% menus.forEach( menu => { %>
+		<div  style="margin-left: 3%">
+			<a href="/menus/<%= menu._id %>">
+				<img src="../images/<%= menu.image %>" style="width:300px; height:300px;" />
+			</a>
+
+			<div class="caption" style="text-align: center; font-size: 1.2rem；font-family: 'Oswald', sans-serif;">
+				<a href="/menus/<%= menu._id %>"> <%= menu.name %></a>
+			</div>
+		</div>
+		<% }); %>
+	</div>
+</div>
+
+<br>
+<br>
+
+<div class="container" id="paging" style="text-align: center; margin: auto">
+	<% if (currentPage ==1 && numOfPages>1) {%>
+	<%= parseInt(currentPage)  %>
+	<a href="/menus?page=<%= parseInt(currentPage) + 1 %>"><i class="fas fa-chevron-right"></i></a>
+
+	<%} else if(currentPage < numOfPages) { %>
+	<a href="/menus?page=<%= parseInt(currentPage) - 1 %>"><i class="fas fa-chevron-left"></i></a>
+	<%= parseInt(currentPage)  %>
+	<a href="/menus?page=<%= parseInt(currentPage) + 1 %>"><i class="fas fa-chevron-right"></i></a>
+
+	<%} else if(currentPage == numOfPages && numOfPages > 1) { %>
+	<a href="/menus?page=<%= parseInt(currentPage) - 1 %>"><i class="fas fa-chevron-left"></i></a>
+	<%= parseInt(currentPage)  %>
+	<% } %>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<% include partials/footer %>

@@ -1,0 +1,51 @@
+<% include partials/header %>
+<br><br><br>
+
+<div class="container">
+    <h1 style="font-family: 'Oswald', sans-serif; font-size:50px;">Hello <%= user.username%>!</h1>
+    <h2 style="font-family: 'Oswald', sans-serif; font-size:35px;">Please confirm your order:</h2>
+    <hr>
+    <p style="font-family: 'Oswald', sans-serif; font-size:30px;">Your total is: <strong>$<%= total%></strong>.</p>
+
+    <% items.forEach(function(item){ %>
+    <div class="card mb-3" style="width: 100%;">
+        <div class="row no-gutters">
+            <div class="col-md-4">
+                <a href="/menus/<%= item.menuObject._id %>">
+                    <img class="card-img" src="/images/<%= item.menuObject.image %>"
+                        style="width:180px; height:180px;margin:10px" />
+                </a>
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <div id="menuinfo" class="row align-items-center" style="font-size: font-size: 1rem;font-family: 'Oswald', sans-serif;">
+                        <div class="col-md-6">
+                            <p><strong>Name: </strong><%= item.menuObject.name %></p>
+                            <p><strong>Type: </strong><%= item.menuObject.type %></p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Price: </strong>$<%= item.menuObject.price %></p>
+                            <p><strong>Order Quantity: </strong><%= item.menucount %></p>
+                        </div>
+                        <% if(!item.isEnough) { %>
+                        <div class="alert alert-danger" role="alert">
+                            <strong>The amount of the item is larger than our inventory.</strong>
+                        </div>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <% }); %>
+    <form action="/<%= user._id%>/success" method="POST">
+        <input name="totalPrice" id="totalPrice" value="<%= total%>" type="hidden" />
+        <a href="/<%= user._id%>/cart" class="button">Back to cart</a>
+        <% if(canCheckout) { %>
+        <button type="submit" class="button">Confirm</button>
+        <% } %>
+    </form>
+</div>
+
+<br><br><br>
+<% include partials/footer %>

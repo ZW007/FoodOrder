@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+	<html>
+
+	<head>
+		<title>ITALIAN VILLA </title>
+
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+		<link rel="shortcut icon" href=" /images/favicon.ico" />
+		<link rel="stylesheet" href="/stylesheets/style.css">
+
+		<script src="https://code.jquery.com/jquery-3.1.1.min.js"
+			integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+
+		<script src="/javascripts/usercheck.js" async defer></script>
+		<script src="/javascripts/search.js" async defer></script>
+		<script type="text/javascript"
+			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBcWhzcS0fRqtT4czOHzFBfbw4PqiIhnk4&libraries=places"></script>
+
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200&display=swap" rel="stylesheet">      
+        <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@200&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+			integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+	</head>
+
+
+
+	<body>
+
+	    <div class="header">
+	        <p>Welcome back to our table. We only take catering and pickup order since COVID-19.</p>
+	    </div>
+
+        
+
+				<% if (!user) {%>
+				<ul>
+                <li><a href="/">Italian Villa</a></li>
+		        <li><a href="/menus">Menu</a></li>
+			    <li class="li1"><a href="/login">LOGIN</a></li>
+				<li class="li1"><a href="/register">REGISTER</a></li>
+				</ul>
+				<% }%>
+
+				<% if(user) { %>
+				<ul>
+                    <li><a href="/">Italian Villa</a></li>
+		            <li><a href="/menus">Menu</a></li>
+					<li class="li1">
+						<a href="/<%= user._id %>/profile" class="nav-link">
+							<i class="fas fa-user-circle"></i> <%= user.username %>
+						</a>
+					</li>
+					<% if(!user.isAdmin) { %>
+					<li class="li1">
+						<a href="/<%= user._id %>/cart" class="li1>
+							<i class="fa fa-shopping-cart"></i> Cart
+						</a>
+					</li>
+					<li class="li1">
+						<a href="/<%= user._id %>/wishlist" class="li1">
+							<i class="far fa-heart"></i> Wishlist
+						</a>
+					</li>
+					<% }%>
+					<li class="li1">
+						<a href="/logout" class="li1">
+							<i class="fas fa-sign-out-alt"></i> Logout
+						</a>
+					</li>
+				</ul>
+				<% }%>
+			</div>
+
+	    <div>
+	    
+            <img class="img" src="/images/header.png" style="width:100vw;height:70vh"/>
+        <div>
+       
+	

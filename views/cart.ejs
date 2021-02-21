@@ -1,0 +1,64 @@
+<% include partials/header %>
+<br><br><br>
+
+<div class="container">
+    <h1 style="font-family: 'Oswald', sans-serif; font-size:50px;">Hello <%= user.username%>!</h1>
+    <h2 style="font-family: 'Oswald', sans-serif; font-size:35px;">Your shopping cart:</h2>
+    <hr>
+
+    <% items.forEach(function(item){ %>
+    <div class="card mb-3" style="width: 100%;">
+        <div class="row no-gutters">
+            <div class="col-md-4">
+
+                <a href="/menus/<%= item.menuObject._id %>">
+                    <img class="card-img" src="/images/<%= item.menuObject.image %>"
+                    style="width:180px; height:180px;margin:20px" />
+                </a>
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <div id="menuinfo" class="row align-items-center" style="font-size: 1rem;font-family: 'Oswald', sans-serif;">
+                        <div class="col-md-6">
+                            <p><strong>Name: </strong><%= item.menuObject.name %></p>
+                            <p><strong>Type: </strong><%= item.menuObject.type %></p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Price: </strong>$<%= item.menuObject.price %></p>
+                            <p><strong>Quantity: </strong><%= item.menucount %></p>
+                        </div>
+                        <div class="col-md-6">
+                            <form action="/<%= user._id%>/cart/remove" method="POST">
+                                <input name="itemname" id="itemname" value="<%= item.menuObject.name %>" type="hidden" />
+                                <input name="username" id="username" value="<%= user.username %>" type="hidden" />
+                                <button type="submit" class="button">Remove</button>
+                                <input type="number" id="removeQuantity" name="removeQuantity" min="1" max="10" value="1">
+                            </form>
+                        </div>
+                        <div class="col-md-6">
+                            <form action="/<%= user._id%>/cart/add" method="POST">
+                                <input name="itemname" id="itemname" value="<%= item.menuObject.name %>" type="hidden" />
+                                <input name="username" id="username" value="<%= user.username %>" type="hidden" />
+                                <button type="submit" class="button">Add</button>
+                                <input type="number" id="addQuantity" name="addQuantity" min="1" max="10" value="1">
+                            </form>
+                        </div>
+                        <div class="col-md-6">
+                            <form action="/<%= user._id%>/cart/removeAll" method="POST">
+                                <input name="itemname" id="itemname" value="<%= item.menuObject.name %>" type="hidden" />
+                                <input name="username" id="username" value="<%= user.username %>" type="hidden" />
+                                <button type="submit" class="buttonremoveall">Remove All</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <% }); %>
+    <a href="/menus" class="button">Back to Home</a>
+    <a href="/<%= user._id%>/checkout" class="button">Checkout</a>
+</div>
+
+<br><br><br>
+<% include partials/footer %>

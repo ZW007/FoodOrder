@@ -1,0 +1,142 @@
+<% include partials/header %>
+
+<div class="row">
+
+<div style="width: 30%; margin: 25px auto;">
+
+    <form action="/register" method="POST">
+      <section id ="usernamebox">
+            <p style = "display: block;
+            background-color: #FDF6F6;
+            border: 1px solid #E48E8E;
+            color: #D96060;
+            padding: 5px;
+            width: 90%;
+            border-radius: 3px;
+            font-size: 15px;
+            width: 250px;
+            margin: 30 auto;" id="usernameErr">
+            </p>
+      </section>
+      
+      <section id ="passwordbox">
+            <p style = "display: block;
+            background-color: ##7FFFD4;
+            border: 1px solid #228B22;
+            color: #228B22;
+            padding: 5px;
+            width: 90%;
+            border-radius: 3px;
+            font-size: 15px;
+            width: 250px;
+            margin: 30 auto;" id="result">
+            </p>
+      </section>
+      <div class="form-group tmp">
+      <label for="text" style="font-family: 'Oswald', sans-serif; 
+      font-size:50px;">User Signup</label>
+        <input type="text" name="username" id="rusername" class="form-control" placeholder="Enter username">      
+      </div>
+      <div class="form-group tmp">
+        <input type="password" name="password" id="password" class="form-control" placeholder="Password">
+      
+      
+      </div>
+      
+
+      <button type="submit" class="buttonregister" id="submit">Submit</button>
+    </form>
+    <a href="/menus">Go Back</a>
+</div>
+</div>
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+    var username_state = false;
+    var email_state = false;
+    $("#passwordbox").hide();
+
+    $('#password').keyup(function() {
+        $('#result').html(checkStrength($('#password').val()));
+        $("#passwordbox").show();
+        
+        if($("#result").text() == "Your password should include at least 6 characters!"){
+            $('button').hide();
+        }else if ($('#usernameErr').text() ==="The username you entered is valid!"){
+            $('button').show();
+        } 
+    });
+
+    $('#password').focus(function() {
+        $('button').hide();
+    });
+
+    function checkStrength(password) {
+        var strength = 0
+        if (password.length < 6) {
+            $('#result').removeClass()
+            $('#result').addClass('short')
+            return 'Password should contain at least 6 characters!'
+        }
+        if (password.length > 7) strength += 1
+        // If password contains both lower and uppercase characters, increase strength value.
+        if (password.match(/([a-z].*[A-Z])|([A-Z].*[a-z])/)) strength += 1
+        // If it has numbers and characters, increase strength value.
+        if (password.match(/([a-zA-Z])/) && password.match(/([0-9])/)) strength += 1
+        // If it has one special character, increase strength value.
+        if (password.match(/([!,%,&,@,#,$,^,*,?,_,~])/)) strength += 1
+        // If it has two special characters, increase strength value.
+        if (password.match(/(.*[!,%,&,@,#,$,^,*,?,_,~].*[!,%,&,@,#,$,^,*,?,_,~])/)) strength += 1
+        // Calculated strength value, we can return messages
+        // If value is less than 2
+        if (strength < 2) {
+            $('#result').removeClass()
+            $('#result').addClass('weak')
+            return 'Password strength: weak'
+        } else if (strength == 2) {
+            $('#result').removeClass()
+            $('#result').addClass('good')
+            return 'Password strength: good'
+        } else {
+            $('#result').removeClass()
+            $('#result').addClass('strong')
+            return 'Password strength: strong'
+        }
+    }
+
+});
+
+$("#usernamebox").hide();
+
+$('#rusername').blur(function() {
+    var username = $(this).serialize();
+    if(username==="username=") {
+        // alert("empty");
+        $("#usernamebox").show();
+        $('#usernameErr').text("The username couldn't be empty!");
+        $('button').hide();
+    }
+    else {
+        $.get('/register?' + username, function(response) {
+            if (response.message === 'The username you entered has already been occupied!') {
+                $("#usernamebox").show();
+                $('#usernameErr').text(response.message);
+                $('button').hide();
+            } else {
+                $('#usernameErr').text("The username you entered is valid!");
+                $("#usernamebox").show();
+                $('button').show();
+            }
+        }); 
+    } 
+});
+
+$('#rusername').submit(function(event) {
+    event.preventDefault();
+});
+
+</script>
+
+
+<% include partials/footer %>

@@ -1,0 +1,25 @@
+<% include partials/header %>
+    <div class="row">
+
+	
+		<div style="width: 30%; margin: 25px auto;">
+	        <% include ./partials/messages %>
+            
+			<form action="/login" method="POST">
+			
+			  <div class="form-group">
+			  <label for="text" style="font-family: 'Oswald', sans-serif; font-size:50px;">User Login</label>
+			    <input type="text" name="username" class="form-control" placeholder="Enter username">
+			  </div>
+			  
+			  <div class="form-group">
+			    <input type="password" name="password" class="form-control" placeholder="Password">
+			  </div>
+			  
+			  <button type="submit" class="button">Login</button>
+			  
+			  <a href="/register" type="submit" class="buttonlogin">Register</a>
+			</form>
+		</div>
+    </div>
+<% include partials/footer %>

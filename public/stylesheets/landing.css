@@ -1,0 +1,126 @@
+body {
+  background-color: #000;
+}
+
+#landing-header {
+  z-index: 1;
+  position: relative;
+  text-align: center;
+  padding-top: 40vh;
+}
+
+#landing-header h1 {
+ 
+  color: white;
+  text-align: center;
+  font-family: 'Oswald', sans-serif;
+}
+
+h2 {
+  color: #1c261c;
+  text-align: center;
+  font-family: 'Oswald', sans-serif;
+
+}
+
+h3 {
+  color: #1c261c;
+  text-align: center;
+  font-family: 'Oswald', sans-serif;
+
+}
+
+a:hover{
+  background-color:#0e3623;
+  text-decoration: none;
+}
+
+  .button {
+  color:white;
+  border-radius: 10px;
+  background-color: #1c261c;
+  border: none;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 4px 2px;
+  cursor: pointer;
+  font-family: 'Oswald', sans-serif;
+}
+
+.slideshow { 
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.slideshow li { 
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-size: cover;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  opacity: 0;
+  z-index: 0;
+  animation: imageAnimation 20s linear infinite; 
+}
+
+.slideshow li:nth-child(1) { 
+  background-image: url(../images/italianfood1.jpg);
+    
+}
+.slideshow li:nth-child(2) { 
+
+  background-image: url(../images/jesse-ballantyne-1nqH8ax3B6Q-unsplash.jpg);
+  animation-delay: 4s; 
+}
+.slideshow li:nth-child(3) { 
+  background-image: url(../images/juliana-malta-5RzbK5Avpz8-unsplash.jpg);
+  animation-delay: 8s; 
+}
+.slideshow li:nth-child(4) { 
+  background-image: url(../images/margherita-turrin-YUQEo7ajeLA-unsplash.jpg);
+  animation-delay: 12s; 
+}
+.slideshow li:nth-child(5) { 
+  background-image: url(../images/tomato-salad-with-olive-oil-1239312.jpg);
+  animation-delay: 16s; 
+}
+.slideshow li:nth-child(6) { 
+  background-image: url(../images/jakub-kapusnak-tEVisOXz26Y-unsplash.jpg);
+   animation-delay: 20s;   
+}
+
+@keyframes imageAnimation { 
+  0% { 
+    opacity: 0; 
+    animation-timing-function: ease-in;
+  }
+  10% {
+    opacity: 1;
+    animation-timing-function: ease-out;
+  }
+  20% {
+    opacity: 1
+  }
+  30% {
+    opacity: 0
+  }
+}
+
+/* Older browser support - class added by modernizr 
+.no-cssanimations .slideshow li {
+	opacity: 1;
+}
+*/

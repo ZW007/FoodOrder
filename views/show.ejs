@@ -1,0 +1,72 @@
+<% include partials/header %>
+
+<br>
+<br>
+<br>
+<br>
+<div class="container">
+	<div style="text-align: center">
+		<h1 style="font-family: 'Oswald', sans-serif; font-size:50px;"> Menu Details </h1>
+		<img src="/images/<%= menus.image %>" />
+		<br>
+		<p style="font-family: 'Oswald', sans-serif;">Name: <%= menus.name %></p>
+		<p style="font-family: 'Oswald', sans-serif;">Price: $<%= menus.price %></p>
+		<p style="font-family: 'Oswald', sans-serif;">Type: <%= menus.type %></p>
+		<p style="font-family: 'Oswald', sans-serif;">Inventory: <%= menus.inventory %></p>
+		<p style="font-family: 'Oswald', sans-serif;">Decription: <%= menus.description %></p>
+
+		<% if(user && user.isAdmin) { %>
+		<div class="forAdmin">
+			<div class="toEditMenu">
+				<form style="display: inline" action="/menus/<%= menus._id %>/edit" method="GET">
+					<button type="submit" class="button">Edit menus</button>
+				</form>
+			</div>
+			<br>
+			<% if(!menus.isDeleted) { %>
+			<div class="toDeleteMenu">
+				<form style="display: inline" action="/menus/<%= menus._id %>/delete" method="POST">
+					<button type="submit" class="button">Delete menus</button>
+				</form>
+			</div>
+			<% } %>
+			<% if(menus.isDeleted) { %>
+			<div class="toRecoverMenu">
+				<form style="display: inline" action="/menus/<%= menus._id %>/recover" method="POST">
+					<button type="submit" class="button">Recover menus</button>
+				</form>
+			</div>
+			<% } %>
+		</div>
+		<% } %>
+
+		<% if(user && !user.isAdmin){%>
+		<div class="forcustomer">
+			<div class="toLikeAnItem">
+				<form style="display: inline" action="/<%= user._id %>/wishlist" method="POST">
+					<input name="like" id="like" value="<%= menus._id %>" type="hidden" /><br>
+					<button type="submit" class="button">Add to Wishlist</button>
+				</form>
+			</div>
+			<div class="toBuyAnItem">
+				<form style="display: inline" action="/<%= user._id %>/cart" method="POST">
+					<input name="buy" id="buy" value="<%= menus._id %>" type="hidden" /><br>
+					<button type="submit" class="button">Add to shopping cart</button>
+					<input type="number" id="quantity" name="quantity" min="1" max="10" value="1">
+				</form>
+			</div>
+		</div>
+		<%}%>
+
+		<br>
+		<p>
+			<a href="/menus">Back to List</a>
+		</p>
+	</div>
+
+
+
+</div>
+<br>
+<br>
+<% include partials/footer %>

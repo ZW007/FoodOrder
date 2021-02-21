@@ -1,0 +1,37 @@
+<% include partials/header %>
+<br><br><br>
+
+<div class="container">
+    <h1 style="font-family: 'Oswald', sans-serif; font-size:50px;">Hello <%= user.username%>!</h1>
+    <% if(user && user.isAdmin) { %>
+        <h2 style="font-family: 'Oswald', sans-serif; font-size:35px;">Here is the order history in the database.</h2>
+    <% } %>
+    <% if(user && !user.isAdmin) { %>		
+        <h2 style="font-family: 'Oswald', sans-serif; font-size:35px;">Your order history:</h2>
+	<% } %>
+    <hr>
+
+    <% orders.forEach(function(order){ %>
+    <div class="card mb-3" style="width: 100%;">
+        <div class="row no-gutters">
+            <div class="card-body">
+                <div id="menuinfo" class="row align-items-center" style="font-size: 1rem;font-family: 'Oswald', sans-serif;">
+                    <div class="col-md-6">
+                        OrderID: <a href="/<%= user._id %>/profile/<%= order._id %>" target="_blank"><%= order.orderid %></a><br />
+                    </div>
+                    <div class="col-md-6">
+                        Time: <%= order.ordertime %><br />
+                    </div>
+                    <div class="col-md-6">
+                        Total price: $<%= order.totalPrice %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <% }); %>
+
+</div>
+
+<br><br><br>
+<% include partials/footer %>
