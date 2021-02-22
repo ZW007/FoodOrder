@@ -1,4 +1,4 @@
-# Food Ordering Web NodeJS
+# Food Ordering Web - NodeJS
 A food ordering web using Express, a back end web application framework for Node.js,
 
 To run this,  first creat a mongdb database named by restaurant,  
