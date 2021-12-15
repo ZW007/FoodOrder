@@ -5,4 +5,4 @@ To run this,  first creat a mongdb database named by restaurant, then creat a co
 
 You can now start by registering a new account and explore! Remeber if you need admin privilege, register an account whose usename is admin.
 
-Check out the demo from: 
+Check out the demo from [here](https://www.youtube.com/watch?v=-X_gkWJQakA)
